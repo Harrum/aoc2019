@@ -68,7 +68,7 @@ namespace Aoc.Tests
             Assert.Equal(2, result);
         }
 
-                [Fact]
+        [Fact]
         public void PartTwoExample2()
         {
             var result = this.day1.CalculateFuelWithAddedFuel(1969);
@@ -76,12 +76,27 @@ namespace Aoc.Tests
             Assert.Equal(966, result);
         }
 
-                [Fact]
+        [Fact]
         public void PartTwoExample3()
         {
             var result = this.day1.CalculateFuelWithAddedFuel(100756);
 
             Assert.Equal(50346, result);
+        }
+
+        [Fact]
+        public void PartTwo()
+        {
+            var path = System.AppDomain.CurrentDomain.BaseDirectory;
+            var input = InputReader.ReadAsList("../../../../Aoc.Assignments/Inputs/day1.txt");
+            var result = 0;
+
+            foreach (var i in input)
+            {
+                result += this.day1.CalculateFuelWithAddedFuel(i);
+            }
+
+            Assert.Equal(5026151, result);
         }
     }
 }
