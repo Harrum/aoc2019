@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Aoc.Core
 {
@@ -27,6 +28,22 @@ namespace Aoc.Core
                     input.Add(number);
                 }
             }
+
+            return input;
+        }
+
+        public static IEnumerable<int> ReadFromCommaString(string path)
+        {
+            var file = new FileInfo(path);
+
+            if (!file.Exists)
+            {
+                throw new FileNotFoundException(file.FullName);
+            }
+
+            var lines = File.ReadAllLines(path);
+
+            var input = lines.First().Split(',').Select(s => int.Parse(s));
 
             return input;
         }
