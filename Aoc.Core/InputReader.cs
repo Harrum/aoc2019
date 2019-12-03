@@ -47,5 +47,19 @@ namespace Aoc.Core
 
             return input;
         }
+
+        public static string[] ReadStrings(string path)
+        {
+            var file = new FileInfo(path);
+
+            if (!file.Exists)
+            {
+                throw new FileNotFoundException(file.FullName);
+            }
+
+            var lines = File.ReadAllLines(path);
+
+            return lines;
+        }
     }
 }
