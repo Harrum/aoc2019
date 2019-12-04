@@ -48,6 +48,22 @@ namespace Aoc.Core
             return input;
         }
 
+        public static IEnumerable<int> ReadFromStripedString(string path)
+        {
+            var file = new FileInfo(path);
+
+            if (!file.Exists)
+            {
+                throw new FileNotFoundException(file.FullName);
+            }
+
+            var lines = File.ReadAllLines(path);
+
+            var input = lines.First().Split('-').Select(s => int.Parse(s));
+
+            return input;
+        }
+
         public static string[] ReadStrings(string path)
         {
             var file = new FileInfo(path);

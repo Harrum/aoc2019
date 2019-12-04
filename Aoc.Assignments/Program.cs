@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using Aoc.Assignments.Days.Day3;
+using Aoc.Assignments.Days.Day4;
 using Aoc.Core;
 
 namespace Aoc.Assignments
@@ -12,15 +12,15 @@ namespace Aoc.Assignments
         {
             Console.WriteLine("Hello World!");
 
-            var day = new Day3();
-            var input = InputReader.ReadStrings("../Aoc.Assignments/Inputs/day3.txt").ToArray();
+            var day = new Day4();
+            var input = InputReader.ReadFromStripedString("../Aoc.Assignments/Inputs/day4.txt").ToArray();
 
-            var line1 = day.CreateWire(input[0]);
-            var line2 = day.CreateWire(input[1]);
+            var begin = input[0];
+            var end = input[1];
 
-            var result = day.GetShortestDistance(line1, line2);
+            var result = day.GetPasswords(begin, end, true);
 
-            Console.WriteLine("Value is: " + result);
+            Console.WriteLine("Value is: " + result.Count);
         }
     }
 }
