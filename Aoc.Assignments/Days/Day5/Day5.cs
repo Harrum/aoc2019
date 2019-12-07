@@ -10,7 +10,11 @@ namespace Aoc.Assignments.Days.Day5
 
         public void SetProgram(int[] input)
         {
-            this.program = input;
+            this.program = new int[input.Length];
+            for (int i = 0; i < input.Length; i++)
+            {
+                this.program[i] = input[i];
+            }
         }
 
         public int[] GetProgram()
