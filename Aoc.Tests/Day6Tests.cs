@@ -34,5 +34,35 @@ namespace Aoc.Tests
 
             Assert.Equal(142497, result);
         }
+
+        [Fact]
+        public void Part2Example1()
+        {
+            var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","K)YOU","I)SAN"};
+            this.day6.CreateOrbitalMap(input);
+            var result = this.day6.GetShortestRoute("YOU", "SAN");
+
+            Assert.Equal(4, result);
+        }
+        
+        [Fact]
+        public void Part2Example2()
+        {
+            var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","K)YOU","H)SAN"};
+            this.day6.CreateOrbitalMap(input);
+            var result = this.day6.GetShortestRoute("YOU", "SAN");
+
+            Assert.Equal(7, result);
+        }
+
+        [Fact]
+        public void Part2Example3()
+        {
+            var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","H)YOU","K)SAN"};
+            this.day6.CreateOrbitalMap(input);
+            var result = this.day6.GetShortestRoute("YOU", "SAN");
+
+            Assert.Equal(7, result);
+        }
     }
 }

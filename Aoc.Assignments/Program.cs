@@ -17,7 +17,7 @@ namespace Aoc.Assignments
 
             day.CreateOrbitalMap(input.ToList());
 
-            var result = day.GetDirectAndIndirectOrbits();
+            var result = day.GetShortestRoute("YOU", "SAN");
 
             Console.WriteLine("Value is: " + result);
         }
