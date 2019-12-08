@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using Aoc.Assignments.Days.Day6;
+using Aoc.Assignments.Days.Day8;
 using Aoc.Core;
 
 namespace Aoc.Assignments
@@ -12,14 +12,16 @@ namespace Aoc.Assignments
         {
             Console.WriteLine("Hello World!");
 
-            var day = new Day6();
-            var input = InputReader.ReadStrings("../Aoc.Assignments/Inputs/day6.txt");
+            var day = new Day8();
+            var input = InputReader.ReadStrings("../Aoc.Assignments/Inputs/day8.txt").First();
 
-            day.CreateOrbitalMap(input.ToList());
+            day.CreateImage(25, 6, input);
 
-            var result = day.GetShortestRoute("YOU", "SAN");
+            var result = day.DecodeImage();
 
-            Console.WriteLine("Value is: " + result);
+            day.PrintImage(result);
+
+            //Console.WriteLine("Value is: " + result);
         }
     }
 }
