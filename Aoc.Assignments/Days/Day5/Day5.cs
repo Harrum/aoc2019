@@ -6,7 +6,8 @@ namespace Aoc.Assignments.Days.Day5
     public class Day5
     {
         private int[] program;
-        private int storedValue = 0;
+        private int[] storedValues;
+        private int storedValueIndex;
 
         public void SetProgram(int[] input)
         {
@@ -24,12 +25,23 @@ namespace Aoc.Assignments.Days.Day5
 
         public void SetInput(int input)
         {
-            this.storedValue = input;
+            this.storedValues = new int[] {input};
+            this.storedValueIndex = 0;
+        }
+
+        public void SetMultipleInput(params int[] inputs)
+        {
+            this.storedValueIndex = 0;
+            this.storedValues = new int[inputs.Length];
+            for (var i = 0; i < inputs.Length; i++)
+            {
+                this.storedValues[i] = inputs[i];
+            }
         }
 
         public int GetOutput()
         {
-            return this.storedValue;
+            return this.GetStoredValue();
         }
 
         public void RestoreProgram()
@@ -101,15 +113,15 @@ namespace Aoc.Assignments.Days.Day5
         private int Input(int index, ParameterMode[] parameters)
         {
             var position = this.GetParameterValue(parameters, index, 1, true);
-            this.program[position] = this.storedValue;
+            this.program[position] = this.GetStoredValue();
             return 2;
         }
 
         private int Output(int index, ParameterMode[] parameters)
         {
             var value1 = this.GetParameterValue(parameters, index, 1);
-            this.storedValue = value1;
-            Console.WriteLine("Output is: " + this.storedValue);
+            this.SetStoredValue(value1);
+            // Console.WriteLine("Output is: " + value1);
             return 2;
         }
 
@@ -171,6 +183,23 @@ namespace Aoc.Assignments.Days.Day5
             }
 
             return 4;
+        }
+
+        private int GetStoredValue()
+        {
+            var output = this.storedValues[this.storedValueIndex];
+
+            if (this.storedValueIndex < this.storedValues.Length - 1)
+            {
+                this.storedValueIndex++;
+            }
+
+            return output;
+        }
+
+        private void SetStoredValue(int value)
+        {
+            this.storedValues[this.storedValueIndex] = value;
         }
 
         private int GetParameterValue(ParameterMode[] parameters, int index, int paramNumber, bool output = false)
