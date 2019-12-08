@@ -6,8 +6,7 @@ namespace Aoc.Assignments.Days.Day5
     public class Day5
     {
         private int[] program;
-        private int[] storedValues;
-        private int storedValueIndex;
+        private Queue<int> storedValues;
 
         public void SetProgram(int[] input)
         {
@@ -25,23 +24,22 @@ namespace Aoc.Assignments.Days.Day5
 
         public void SetInput(int input)
         {
-            this.storedValues = new int[] {input};
-            this.storedValueIndex = 0;
+            this.storedValues = new Queue<int>(new int[] {input});
         }
 
         public void SetMultipleInput(params int[] inputs)
         {
-            this.storedValueIndex = 0;
-            this.storedValues = new int[inputs.Length];
-            for (var i = 0; i < inputs.Length; i++)
-            {
-                this.storedValues[i] = inputs[i];
-            }
+            this.storedValues = new Queue<int>(inputs);
         }
 
         public int GetOutput()
         {
             return this.GetStoredValue();
+        }
+
+        public int[] GetOutputs()
+        {
+            return this.storedValues.ToArray();
         }
 
         public void RestoreProgram()
@@ -187,19 +185,12 @@ namespace Aoc.Assignments.Days.Day5
 
         private int GetStoredValue()
         {
-            var output = this.storedValues[this.storedValueIndex];
-
-            if (this.storedValueIndex < this.storedValues.Length - 1)
-            {
-                this.storedValueIndex++;
-            }
-
-            return output;
+            return this.storedValues.Dequeue();
         }
 
         private void SetStoredValue(int value)
         {
-            this.storedValues[this.storedValueIndex] = value;
+            this.storedValues.Enqueue(value);
         }
 
         private int GetParameterValue(ParameterMode[] parameters, int index, int paramNumber, bool output = false)
