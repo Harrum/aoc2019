@@ -10,7 +10,7 @@ namespace Aoc.Assignments.Days.Day7
 
         public Day7()
         {
-            this.ProgramThing = new Day5.Day5();
+            this.ProgramThing = new Day5.Day5(true);
         }
 
         public int CalculateMaxThrusterValueWithFeedbackLoop(int[] program)
@@ -35,31 +35,24 @@ namespace Aoc.Assignments.Days.Day7
         {
             this.ProgramThing.SetProgram(program);
             
-            var ampA = this.RunProgram(new[]{input[0], 0}, program);
-            var ampB = this.RunProgram(new[]{input[1]}.Concat(ampA).ToArray(), program);
-            var ampC = this.RunProgram(new[]{input[2]}.Concat(ampB).ToArray(), program);
-            var ampD = this.RunProgram(new[]{input[3]}.Concat(ampC).ToArray(), program);
-            var ampE = this.RunProgram(new[]{input[4]}.Concat(ampD).ToArray(), program);
+            var ampA = 0;
+            var ampB = 0;
+            var ampC = 0;
+            var ampD = 0;
+            var ampE = 0;
 
-            var hasOutput = true;
-            var thrusterValue = 0;
+            var Day5[] = new Day5.Day5[5];
 
             while (hasOutput)
             {
-                ampA = this.RunProgram(ampE, program);
-                if (!ampA.Any()) break;
-                ampB = this.RunProgram(ampA, program);
-                if (!ampB.Any()) break;
-                ampC = this.RunProgram(ampB, program);
-                if (!ampC.Any()) break;
-                ampD = this.RunProgram(ampC, program);
-                if (!ampD.Any()) break;
-                ampE = this.RunProgram(ampD, program);
-                if (!ampE.Any()) break;
-                thrusterValue = ampE.First();
+                ampA = this.RunProgram(new[]{input[0], 0}, program);
+                ampB = this.RunProgram(new[]{input[1]}.Concat(ampA).ToArray(), program);
+                ampC = this.RunProgram(new[]{input[2]}.Concat(ampB).ToArray(), program);
+                ampD = this.RunProgram(new[]{input[3]}.Concat(ampC).ToArray(), program);
+                ampE = this.RunProgram(new[]{input[4]}.Concat(ampD).ToArray(), program);
             }
 
-            return thrusterValue;
+            return ampE;
         }
 
         public int CalculateMaxThrusterValue(int[] program)
@@ -84,21 +77,21 @@ namespace Aoc.Assignments.Days.Day7
         {
             this.ProgramThing.SetProgram(program);
             
-            var ampA = this.RunProgram(new[]{phaseSettings[0], 0}, program).First();
-            var ampB = this.RunProgram(new[]{phaseSettings[1], ampA}, program).First();
-            var ampC = this.RunProgram(new[]{phaseSettings[2], ampB}, program).First();
-            var ampD = this.RunProgram(new[]{phaseSettings[3], ampC}, program).First();
-            var ampE = this.RunProgram(new[]{phaseSettings[4], ampD}, program).First();
+            var ampA = this.RunProgram(new[]{phaseSettings[0], 0}, program);
+            var ampB = this.RunProgram(new[]{phaseSettings[1], ampA}, program);
+            var ampC = this.RunProgram(new[]{phaseSettings[2], ampB}, program);
+            var ampD = this.RunProgram(new[]{phaseSettings[3], ampC}, program);
+            var ampE = this.RunProgram(new[]{phaseSettings[4], ampD}, program);
 
             return ampE;
         }
 
-        private int[] RunProgram(int[] inputs, int[] program)
+        private int RunProgram(int[] inputs, int[] program)
         {
             this.ProgramThing.SetMultipleInput(inputs);
             this.ProgramThing.RestoreProgram();
 
-            return this.ProgramThing.GetOutputs();
+            return this.ProgramThing.GetOutput();
         }
 
         private List<int[]> GeneratePhaseSettings(int start, int end)

@@ -1,12 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Aoc.Assignments.Days.Day5
 {
     public class Day5
     {
+        private bool loopMode;
         private int[] program;
         private Queue<int> storedValues;
+        private bool isRunning;
+        private int index;
+
+        public Day5() : this(false)
+        {
+        }
+
+        public Day5(bool loop)
+        {
+            this.loopMode = loop;
+            this.index = 0;
+        }
 
         public void SetProgram(int[] input)
         {
@@ -32,6 +46,11 @@ namespace Aoc.Assignments.Days.Day5
             this.storedValues = new Queue<int>(inputs);
         }
 
+        public void AddInput(int input)
+        {
+            this.storedValues.Enqueue(input);
+        }
+
         public int GetOutput()
         {
             return this.GetStoredValue();
@@ -42,13 +61,14 @@ namespace Aoc.Assignments.Days.Day5
             return this.storedValues.ToArray();
         }
 
-        public void RestoreProgram()
+        public bool IsRunning()
         {
-            this.RestoreProgram(0);
+            return this.isRunning;
         }
 
-        private void RestoreProgram(int index)
+        public void RestoreProgram()
         {
+            this.isRunning = true;
             var opcode = this.GetOpcode(program[index]);
             var parameters = this.GetParameters(program[index]);
 
@@ -62,11 +82,17 @@ namespace Aoc.Assignments.Days.Day5
                     programLength = this.MultiplyValues(index, parameters);
                     break;
                 case Opcode.Input:
-                    programLength = this.Input(index, parameters);
-                    break;
+                    if (!this.storedValues.Any())
+                        return;
+                    else
+                        programLength = this.Input(index, parameters);
+                        break;
                 case Opcode.Output:
                     programLength = this.Output(index, parameters);
-                    break;
+                    if (this.loopMode)
+                        return;
+                    else
+                        break;
                 case Opcode.JumpIfTrue:
                     programLength = this.JumpIfTrue(index, parameters);
                     break;
@@ -80,12 +106,13 @@ namespace Aoc.Assignments.Days.Day5
                     programLength = this.Equals(index, parameters);
                     break;
                 case Opcode.EndProgram:
+                    this.isRunning = false;
                     return;
                 default:
                     throw new ArgumentException("Invalid opcode: " + opcode);
             }
 
-            this.RestoreProgram(index + programLength);  
+            this.RestoreProgram();  
         }
 
         private int AddValues(int index, ParameterMode[] parameters)
