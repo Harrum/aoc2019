@@ -17,51 +17,25 @@ namespace Aoc.Assignments.Days.Day6
             this.goodPlanets = new List<Planet>();
         }
 
-        public int GetShortestRoute(string start, string destination)
+        public int GetShortestRoute2(string start, string destination)
         {
             var startPlanet = this.planets.First(p => p.Name == start).Parent;
-            var previous = this.planets.First(p => p.Name == start);
-            return this.GetShortestRoute(startPlanet, previous, destination, 0);
+            var s = this.GetRouteToParent(startPlanet, destination);
+            var endPlanet = this.planets.First(p => p.Name == destination).Parent;
+            var e = this.GetRouteToParent(endPlanet, start);
+
+            return s + e;
         }
 
-        public int GetShortestRoute(Planet start, Planet previous, string destination, int length)
+        public int GetRouteToParent(Planet start, string destination)
         {
-            if (this.visitedPlanets.Any(p => p.Name == start.Name))
+            if (start.Parent.HasChildDestination(destination))
             {
-                return 0;
-            }
-            if (!start.HasChildren())
-            {
-                this.visitedPlanets.Add(start);
-                return 0;
-            }
-            else if (start.HasChild(destination))
-            {
-                return length;
-            }
-            else if (start.HasChildDestination(destination))
-            {
-                Console.WriteLine(previous.Name + " TO " + start.Name);
-                this.goodPlanets.Add(start);
-                var route = 0;
-
-                foreach (var planet in start.Children)
-                {
-                    route = this.GetShortestRoute(planet, previous, destination, length + 1);
-                    if (route > 0)
-                    {
-                        Console.WriteLine(start.Name + " TO " + planet.Name);
-                        return route;
-                    }
-                }
-
-                return 0;
+                return 1;
             }
             else
             {
-                Console.WriteLine(previous.Name + " TO " + start.Name);
-                this.visitedPlanets.Add(start);
-                return this.GetShortestRoute(start.Parent, start, destination, length + 1);
+                return 1 + this.GetRouteToParent(start.Parent, destination);
             }
         }
 
