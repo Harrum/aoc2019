@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Aoc.Assignments.Days.Day5
 {
-    public class Day5
+    public class IntCoder
     {
         private bool loopMode;
         private int[] program;
@@ -12,11 +12,11 @@ namespace Aoc.Assignments.Days.Day5
         private bool isRunning;
         private int index;
 
-        public Day5() : this(false)
+        public IntCoder() : this(false)
         {
         }
 
-        public Day5(bool loop)
+        public IntCoder(bool loop)
         {
             this.loopMode = loop;
             this.index = 0;

@@ -7,11 +7,11 @@ namespace Aoc.Tests
 {
     public class Day5Tests
     {
-        private readonly Day5 day5;
+        private readonly IntCoder day5;
 
         public Day5Tests()
         {
-            this.day5 = new Day5();
+            this.day5 = new IntCoder();
         }
 
         [Fact]

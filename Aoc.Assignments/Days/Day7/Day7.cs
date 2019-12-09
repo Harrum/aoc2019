@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Aoc.Assignments.Days.Day5;
 
 namespace Aoc.Assignments.Days.Day7
 {
     public class Day7
     {
-        private readonly Day5.Day5 ProgramThing;
+        private readonly IntCoder ProgramThing;
 
         public Day7()
         {
-            this.ProgramThing = new Day5.Day5(true);
+            this.ProgramThing = new IntCoder(true);
         }
 
         public int CalculateMaxThrusterValueWithFeedbackLoop(int[] program)
@@ -33,26 +34,40 @@ namespace Aoc.Assignments.Days.Day7
 
         public int CalculateThrusterValueWithFeedbackLoop(int[] program, int[] input)
         {
-            this.ProgramThing.SetProgram(program);
-            
-            var ampA = 0;
-            var ampB = 0;
-            var ampC = 0;
-            var ampD = 0;
-            var ampE = 0;
-
-            var Day5[] = new Day5.Day5[5];
-
-            while (hasOutput)
+            var intCoders = new List<IntCoder>();
+            for (int i = 0; i < 5; i++)
             {
-                ampA = this.RunProgram(new[]{input[0], 0}, program);
-                ampB = this.RunProgram(new[]{input[1]}.Concat(ampA).ToArray(), program);
-                ampC = this.RunProgram(new[]{input[2]}.Concat(ampB).ToArray(), program);
-                ampD = this.RunProgram(new[]{input[3]}.Concat(ampC).ToArray(), program);
-                ampE = this.RunProgram(new[]{input[4]}.Concat(ampD).ToArray(), program);
+                var intCoder = new IntCoder(true);
+                intCoder.SetProgram(program);
+                intCoder.SetMultipleInput(new[] {input[i]});
+                intCoders.Add(intCoder);
             }
 
-            return ampE;
+            var output = 0;
+
+            var runningProgram = program;
+            var index = 0;
+            while (intCoders.Any())
+            {
+                var ic = intCoders[index];
+                ic.SetProgram(runningProgram);
+                ic.AddInput(output);
+                ic.RestoreProgram();
+                output = ic.GetOutput();
+                runningProgram = ic.GetProgram();
+
+                if (!ic.IsRunning())
+                {
+                    intCoders.Remove(ic);
+                }
+
+                if (index < intCoders.Count)
+                    index++;
+                else
+                    index = 0;
+            }
+
+            return output;
         }
 
         public int CalculateMaxThrusterValue(int[] program)
