@@ -54,6 +54,7 @@ namespace Aoc.Assignments.Days.Day5
         public int GetOutput()
         {
             return this.GetStoredValue();
+            // return this.output;
         }
 
         public int[] GetOutputs()
@@ -112,6 +113,7 @@ namespace Aoc.Assignments.Days.Day5
                     throw new ArgumentException("Invalid opcode: " + opcode);
             }
 
+            this.index += programLength;
             this.RestoreProgram();  
         }
 
@@ -145,6 +147,7 @@ namespace Aoc.Assignments.Days.Day5
         private int Output(int index, ParameterMode[] parameters)
         {
             var value1 = this.GetParameterValue(parameters, index, 1);
+            // this.output = value1;
             this.SetStoredValue(value1);
             // Console.WriteLine("Output is: " + value1);
             return 2;

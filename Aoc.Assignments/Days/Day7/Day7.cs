@@ -7,11 +7,10 @@ namespace Aoc.Assignments.Days.Day7
 {
     public class Day7
     {
-        private readonly IntCoder ProgramThing;
+        private IntCoder ProgramThing;
 
         public Day7()
         {
-            this.ProgramThing = new IntCoder(true);
         }
 
         public int CalculateMaxThrusterValueWithFeedbackLoop(int[] program)
@@ -72,6 +71,7 @@ namespace Aoc.Assignments.Days.Day7
 
         public int CalculateMaxThrusterValue(int[] program)
         {
+            this.ProgramThing = new IntCoder();
             var maxValue = int.MinValue;
 
             var phaseSettings = this.GeneratePhaseSettings(0, 4);
