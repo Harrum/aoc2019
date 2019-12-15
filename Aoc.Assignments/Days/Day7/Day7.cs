@@ -71,7 +71,6 @@ namespace Aoc.Assignments.Days.Day7
 
         public int CalculateMaxThrusterValue(int[] program)
         {
-            this.ProgramThing = new IntCoder();
             var maxValue = int.MinValue;
 
             var phaseSettings = this.GeneratePhaseSettings(0, 4);
@@ -89,7 +88,9 @@ namespace Aoc.Assignments.Days.Day7
         }
 
         public int CalculateThrusterValue(int[] program, int[] phaseSettings)
-        {
+        {            
+            this.ProgramThing = new IntCoder();
+
             this.ProgramThing.SetProgram(program);
             
             var ampA = this.RunProgram(new[]{phaseSettings[0], 0}, program);
