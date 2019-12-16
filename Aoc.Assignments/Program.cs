@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using Aoc.Assignments.Days.Day7;
+using Aoc.Assignments.Days.Day10;
 using Aoc.Core;
 
 namespace Aoc.Assignments
@@ -12,10 +12,10 @@ namespace Aoc.Assignments
         {
             Console.WriteLine("Hello World!");
 
-            var day = new Day7();
-            var input = InputReader.ReadFromCommaString("../Aoc.Assignments/Inputs/day7.txt").ToArray();
+            var day = new Day10();
+            var input = InputReader.ReadStrings("../Aoc.Assignments/Inputs/day10.txt").ToArray();
 
-            var result = day.CalculateMaxThrusterValue(input);
+            var result = day.GetAsteroidsFromBestLocation(input);
 
             Console.WriteLine("Value is: " + result);
         }
