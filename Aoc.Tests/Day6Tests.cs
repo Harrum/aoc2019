@@ -40,7 +40,7 @@ namespace Aoc.Tests
         {
             var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","K)YOU","I)SAN"};
             this.day6.CreateOrbitalMap(input);
-            var result = this.day6.GetShortestRoute("YOU", "SAN");
+            var result = this.day6.GetShortestRoute2("YOU", "SAN");
 
             Assert.Equal(4, result);
         }
@@ -50,7 +50,7 @@ namespace Aoc.Tests
         {
             var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","K)YOU","H)SAN"};
             this.day6.CreateOrbitalMap(input);
-            var result = this.day6.GetShortestRoute("YOU", "SAN");
+            var result = this.day6.GetShortestRoute2("YOU", "SAN");
 
             Assert.Equal(7, result);
         }
@@ -60,9 +60,19 @@ namespace Aoc.Tests
         {
             var input = new List<string> {"COM)B","B)C","C)D","D)E","E)F","B)G","G)H","D)I","E)J","J)K","K)L","H)YOU","K)SAN"};
             this.day6.CreateOrbitalMap(input);
-            var result = this.day6.GetShortestRoute("YOU", "SAN");
+            var result = this.day6.GetShortestRoute2("YOU", "SAN");
 
             Assert.Equal(7, result);
+        }
+
+        [Fact]
+        public void Part2()
+        {
+            var input = InputReader.ReadStrings("../../../../Aoc.Assignments/Inputs/day6.txt");
+            this.day6.CreateOrbitalMap(input.ToList());
+            var result = this.day6.GetShortestRoute2("YOU", "SAN");
+
+            Assert.Equal(301, result);
         }
     }
 }
