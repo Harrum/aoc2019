@@ -15,9 +15,9 @@ namespace Aoc.Assignments
             var day = new Day10();
             var input = InputReader.ReadStrings("../Aoc.Assignments/Inputs/day10.txt").ToArray();
 
-            var result = day.GetAsteroidsFromBestLocation(input);
-
-            Console.WriteLine("Value is: " + result);
+            var result = day.GetNthVaporizedAsteroid(200, new System.Drawing.Point(25,31), input);
+            var value = result.X * 100 + result.Y;
+            Console.WriteLine("Value is: " + value);
         }
     }
 }
